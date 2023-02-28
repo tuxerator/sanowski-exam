@@ -1,17 +1,18 @@
 pub mod node;
 pub mod edge;
+mod adjacency_matrix;
 
 use edge::Edge;
+use crate::quad_matrix_usize::QuadMatrixBool;
 
 #[derive(Debug)]
 pub struct Graph {
-    vertecies: Vec<usize>,
-    edges: Vec<Edge>,
+    adjacency_matrix: QuadMatrixBool,
 }
 
 impl Graph {
     pub fn add_vertex(&mut self, id: usize) {
-        if !self.vertecies.contains(&id) {
+        if !self.adjacency_matrix. {
             self.vertecies.push(id);
         }
     }

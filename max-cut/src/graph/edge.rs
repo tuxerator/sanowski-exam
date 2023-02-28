@@ -1,7 +1,7 @@
 #[derive(Debug)]
 pub struct Edge {
-    pub node_l: u32,
-    pub node_r: u32,
+    pub node_l: usize,
+    pub node_r: usize,
 }
 
 impl PartialEq for Edge {
