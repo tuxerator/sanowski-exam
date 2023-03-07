@@ -11,19 +11,16 @@ pub struct Graph {
 }
 
 impl Graph {
-    pub fn add_vertex(&mut self, id: usize) {
-        if !self.adjacency_matrix. {
-            self.vertecies.push(id);
-        }
+    pub fn new(n: usize) -> Graph {
+        Graph { adjacency_matrix: QuadMatrixBool::new_epmty(n) }
+    }
+    pub fn add_edge(&mut self, edge: &Edge) {
+        self.adjacency_matrix.set((edge.node_l, edge.node_r), true);
     }
 
-    pub fn delete_vertex(&mut self, id: usize) {
-        self.vertecies.swap_remove(id);
-    }
+    pub fn add_edges(&mut self, edges: &[Edge]) {
+        let edge_iter = edges.iter();
 
-    pub fn add_edge(&mut self, edge: Edge) {
-        if !self.edges.contains(&edge) {
-            self.edges.push(edge);
-        }
+        edge_iter.for_each(|edge| self.add_edge(&edge));
     }
 }

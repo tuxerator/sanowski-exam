@@ -14,3 +14,9 @@ impl PartialEq for Edge {
         }
     }
 }
+
+impl Edge {
+    pub fn new(x: usize, y: usize) -> Edge {
+        Edge { node_l: x, node_r: y }
+    }
+}
