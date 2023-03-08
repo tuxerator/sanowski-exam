@@ -21,7 +21,7 @@ impl AdjacencyMatrix {
 
     // }
 
-    pub fn add_edge(&mut self, edge: Edge) {
+    pub fn add_edge(&mut self, edge: &Edge) {
         // let i = (
         //     self.vericies.iter().position(|&x| x == edge.node_l).unwrap(),
         //     self.vericies.iter().position(|&x| x == edge.node_r).unwrap()
@@ -33,23 +33,23 @@ impl AdjacencyMatrix {
         self.matrix.set(i, true);
     }
 
-    pub fn add_edges(&mut self, edges: Vec<Edge>) {
+    pub fn add_edges(&mut self, edges: &[Edge]) {
         let edges_iter = edges.iter();
 
-        edges_iter.for_each(|&edge| self.add_edge(edge));
+        edges_iter.for_each(|edge| self.add_edge(edge));
     }
 
-    pub fn delete_edge(&mut self, edge: Edge) {
+    pub fn delete_edge(&mut self, edge: &Edge) {
         let i = (edge.node_l, edge.node_r);
         self.matrix.set(i, false);
         let i = (i.1, i.0);
         self.matrix.set(i, false);
     }
 
-    pub fn delete_edges(&mut self, edges: Vec<Edge>) {
+    pub fn delete_edges(&mut self, edges: &[Edge]) {
         let edges_iter = edges.iter();
 
-        edges_iter.for_each(|&edge| self.delete_edge(edge));
+        edges_iter.for_each(|edge| self.delete_edge(edge));
     }
 
     pub fn contains_edge(&mut self, edge: Edge) -> bool {

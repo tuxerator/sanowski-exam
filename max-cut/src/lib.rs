@@ -1,3 +1,3 @@
-mod graph;
-mod quad_matrix_usize;
-mod graph_parser;
+pub mod graph;
+pub mod quad_matrix_usize;
+pub mod graph_parser;

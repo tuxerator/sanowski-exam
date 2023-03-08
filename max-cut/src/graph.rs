@@ -5,7 +5,7 @@ mod adjacency_matrix;
 use edge::Edge;
 use crate::quad_matrix_usize::QuadMatrixBool;
 
-#[derive(Debug)]
+#[derive(PartialEq,Debug)]
 pub struct Graph {
     adjacency_matrix: QuadMatrixBool,
 }

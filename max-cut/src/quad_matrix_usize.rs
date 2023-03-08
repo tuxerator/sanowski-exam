@@ -1,6 +1,6 @@
 use std::fmt;
 
-#[derive(Debug)]
+#[derive(PartialEq, Debug)]
 pub struct QuadMatrixBool {
     n: usize,
     data: Vec<Vec<bool>>,
@@ -24,7 +24,7 @@ impl QuadMatrixBool {
     }
 
     pub fn new(data: Vec<Vec<bool>>) -> Result<QuadMatrixBool, NotQuadError> {
-        if !data.iter().all(|&x| x.len() == data.len()) {
+        if !data.iter().all(|x| x.len() == data.len()) {
             return Err(NotQuadError);
         }
 
