@@ -7,6 +7,10 @@ use clap::Parser;
 pub struct Args {
     pub file: std::path::PathBuf,
 
+    /// Calculate the maximum cut using an integer linear program
+    #[arg(short, long)]
+    pub ilp: bool,
+
     /// Write output into specified file
     #[arg(short, long, value_name = "FILE")]
     pub output: Option<PathBuf>,

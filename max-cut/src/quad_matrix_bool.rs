@@ -2,7 +2,6 @@ use std::fmt;
 
 #[derive(PartialEq, Debug)]
 pub struct QuadMatrixBool {
-    n: usize,
     data: Vec<Vec<bool>>,
 }
 
@@ -17,10 +16,9 @@ impl fmt::Display for NotQuadError {
     }
 }
 
-
 impl QuadMatrixBool {
     pub fn new_epmty(n: usize) -> QuadMatrixBool {
-        QuadMatrixBool { n, data: vec![vec![false; n]; n] }
+        QuadMatrixBool { data: vec![vec![false; n]; n] }
     }
 
     pub fn new(data: Vec<Vec<bool>>) -> Result<QuadMatrixBool, NotQuadError> {
@@ -28,18 +26,18 @@ impl QuadMatrixBool {
             return Err(NotQuadError);
         }
 
-        Ok(QuadMatrixBool { n: data.len(), data })
+        Ok(QuadMatrixBool { data })
     }
 
     pub fn size(&self) -> usize {
         self.data.len()
     }
 
-    pub fn get(&self, i: (usize, usize)) -> bool {
+    pub fn get(&self, i: &(usize, usize)) -> bool {
         self.data[i.0][i.1]
     }
 
-    pub fn set(&mut self, i: (usize,usize), element: bool) {
+    pub fn set(&mut self, i: &(usize,usize), element: bool) {
         self.data[i.0][i.1] = element;
     }
 }
