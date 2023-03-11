@@ -2,7 +2,7 @@ mod args;
 use std::{fs, process};
 
 use args::Args;
-use max_cut::{graph_parser, ilp};
+use max_cut::{graph_parser, ilp, greedy};
 
 use clap::Parser;
 
