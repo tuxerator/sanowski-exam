@@ -1,5 +1,6 @@
 pub mod graph;
-pub mod quad_matrix_bool;
 pub mod graph_parser;
+pub mod aprox;
 pub mod ilp;
-pub mod greedy;
+pub mod quad_matrix_bool;
+pub mod heuristic;

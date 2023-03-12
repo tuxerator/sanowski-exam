@@ -8,3 +8,11 @@ edition = "2021"
 [dependencies]
 clap = { version = "4.0", features = ["derive"] }
 good_lp = "1.3.3"
+rand = { version = "0.8.5", features = ["small_rng"] }
+
+[dev-dependencies]
+criterion = { version = "0.3.6" }
+
+[[bench]]
+name = "heuristic_bench"
+harness = false

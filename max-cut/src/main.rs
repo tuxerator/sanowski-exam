@@ -1,8 +1,9 @@
 mod args;
-use std::{fs, process};
+use core::time;
+use std::{fs, process, thread};
 
 use args::Args;
-use max_cut::{graph_parser, ilp, greedy};
+use max_cut::{graph_parser, ilp, heuristic, aprox};
 
 use clap::Parser;
 
@@ -19,7 +20,7 @@ fn main() {
         process::exit(1);
     });
 
-    println!("parsed \'{}\':\n{:?}", args.file.to_str().unwrap(), graph);
+    println!("parsed \'{}\'", args.file.to_str().unwrap());
 
     if args.ilp {
         let ilp = ilp::MaxCutIlp::new(&graph);
@@ -29,6 +30,10 @@ fn main() {
             process::exit(1);
         });
 
-        println!("Maximum cut for \'{}\':\n\n{:?}", args.file.to_str().unwrap(), exact);
+        println!(
+            "Maximum cut for \'{}\':\n\n{:?}",
+            args.file.to_str().unwrap(),
+            exact
+        );
     }
 }
