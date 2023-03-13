@@ -1,0 +1,140 @@
+\documentclass[twocolumn]{article}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{natbib}
+\usepackage{amsmath}
+\usepackage{algorithm2e}
+
+% \usepackage{themeKonstanz}
+% \usepackage{themeKonstanzXelatexAddOn}
+
+\newcommand{\aetitle}{Comparison of an approximation, heuristic and integer-linear program for the max-cut problem on unweighted, undirected graphs} % Title of the report
+\newcommand{\studentOne}{Jakob Sanowski} % Name 1
+\newcommand{\studentTwo}{} % Name 2
+
+
+\begin{document}
+
+\input{ae_title}
+
+\begin{abstract}
+    The abstract gives a short summary of the project. Begin by stating the motivation of the research at hand, describe the problem and shortly describe what methods you used to solve this problem. Finally, name the most important findings and provide a brief conclusion of your work.
+\end{abstract}
+
+
+\section{Introduction}
+% The Introduction is meant to lead the reader into the task at hand. State the motivation and purpose of your project, and name the achieved goals.
+
+\section{Preliminaries}
+% The preliminaries provide the reader with necessary background information. In this section the basic algorithms and the ideas behind them are explained.
+The maximum-cut of a graph is the cut which size is at least the size of any other possible cut.
+A cut is a partition of all vertices into two complementary sets $S$ and $T$,
+which size is defined by the number of edges between $S$ and $T$.
+
+For finding an exact solution we can formulate an integer-linear program \(ILP\).
+Because the max-cut problem is NP-Hard there do not exist any polynominal-time algorithms for it.
+There are .. numerous approximation algorithms and heuristics for getting an approximate solution.
+In the following I will briefly explain the ILP-formulation, 0.5-approximation algorithm and heuristic
+I used.
+
+\subsection{Integer-Linear Program}
+An Integer-Linear program is a maximazation (or minimazation) of a objective function subject to a number of constraints with some or all of the variables being integers.
+The objective function and the constraints have to be linear.
+The maximum-cut problem can be formulated as follows:
+
+Given a graph $G = (V, E)$, let $\{x_v\}_{v \in V}, \{z_e\}_{e \in E} \in \{0, 1\}$ where $x_v$ encodes the partition $v$ belongs to
+and $x_e$ encodes whether $e$ is part of the cut or not.
+Then the ILP can be formulated as follows:
+
+\begin{align}
+  \text{maximise} \; & \sum_{uv \in E} z_{uv} \\
+  \text{subject to:} \; & z_{uv} \leq x_u + x_v, \label{cst1} \\
+  & z_{uv} \leq 2 - (x_u + x_v) \label{cst2}
+\end{align}
+
+This discribes our problem because $z_{uv}$ can only be $1$ if $uv$ is part of the cut. 
+When $u$ and $v$ are in the same partition, $x_u + x_v = 0$ (or $2$ respectively).
+Because of (\ref{cst1}) and (\ref{cst2}) $z_{uv}$ then only can be $0$.
+Only when $u$ and $v$ are in different partitions $x_u + x_v = 1$ and $z_uv$ can become
+$1$ and thus be part of the cut.
+
+\subsection{0.5-Approximation Algorithm}
+
+The 0.5-approximation algorithm is a greedy which iteratively inserts each vertex in the partition
+which improves the cut the most. For each vertex $v$ we count the the number of neighbors in
+$S$ and $T$ and then insert $v$ in the partition wich contains less neighbors of $v$ in order
+to increase the cut size as much as possible. Algorithm~\ref{algo:approx} shows the pseudo-code
+of this algorithm.
+
+This algorithm finds a 0.5-approximation because if we let $C_{v_i}$ be the cut with all vertex added
+before $v_i$ and $E_{v_i} = \{(v_i, u) | u \in \{v_1, \dots, v_{i -1}\}\}$ the edges between $v_i$
+and all vertices added before $v_i$ then at least $\frac{1}{2}|E_{v_i}|$ get added to $C_{v_i}$.
+
+Summing over all $v \in V$ we get:
+\begin{align*}
+  |C| & \geq \frac{1}{2} \sum_{v} |E_v| \\
+  |C| & \geq \frac{1}{2} |E|
+\end{align*}
+
+
+
+
+\begin{algorithm}
+  \caption{0.5-Approximation Algorithm for Maximum-Cut}
+  \label{alg:approx}
+  \KwIn{Graph $G = (V, E)$}
+  \KwOut{Cut $C$}
+  \Begin{
+    \ForEach{$v \in V$}{
+      \If{$|neigh(v) \in S| \leq |neigh(v) \notin S|$}{
+        $S = S \cup \{v\}$
+      }
+    }
+    \KwRet{$(S, S \setminus V)$}
+  }
+\end{algorithm}
+
+
+\section{Algorithm \& Implementation}
+This section provides information about the actually used algorithms and their respective implementations. It should roughly cover the following three topics:
+\begin{itemize}
+	\item \textbf{Advanced Algorithm:}\\
+		Give and explain the advanced algorithms that you used, and compare them to the basic algorithms.
+	\item \textbf{Implementation:}\\
+		Explain how you implemented these algorithms and state what external libraries you used.
+	\item \textbf{Algorithm Engineering Concepts:}\\
+		State the algorithm engineering concepts that you used and explain why they were helpful (if applicable).
+\end{itemize}
+
+\section{Experimental Evaluation}
+In this section, the experimental setup is described and the results are presented.
+
+\subsection{Data and Hardware}%
+\label{sub:Data and Hardware}
+Here, the input data and the applied parameters are described. Further, information about the underlying hardware such as main memory and CPU is provided.
+
+\subsection{Results}%
+\label{sub:Results}
+In this part, the results are presented. This includes comparison of running time and memory usage.\\
+To visualize the results we recommend one of the following graphing tools:
+\begin{itemize}
+	\item \textbf{mathplotlib:}\\ 
+		\href{https://matplotlib.org/}{matplotlib} is a library for python which allows the direct visualization of the produced results.
+	\item \textbf{R:}\\
+		R is a programming language for statistical computations, which provides different graphing possibilities. One of the better known is \href{https://ggplot2.tidyverse.org/}{ggplot2}.
+	\item \textbf{gnuplot:}\\
+		\href{http://www.gnuplot.info/}{gnuplot} is a command-line plotting program. It can also be used to graph data directly from different programming languages, such as Java and C++.
+\end{itemize}
+
+\section{Discussion and Conclusion}
+In this section, the results are discussed and interpreted. Finally, the work is summarized shortly.
+
+\section{References}
+The references list the external resources used in the work at hand. \LaTeX$ $  offers special ways to list those resources. In this template the references are stored in the 'refs.bib' file and can be referenced with the '\textbackslash$ $cite\{REF\}' command, where REF is a label defined in the .bib file. This example shows how such a reference looks like: \cite{exa}.
+
+\bibliographystyle{abbrvnat}
+\bibliography{refs}
+
+\end{document}

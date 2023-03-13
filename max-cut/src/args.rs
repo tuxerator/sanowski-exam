@@ -14,4 +14,8 @@ pub struct Args {
     /// Write output into specified file
     #[arg(short, long, value_name = "FILE")]
     pub output: Option<PathBuf>,
+
+    /// Benchmark the calculation
+    #[arg(short, long)]
+    pub bench: bool,
 }

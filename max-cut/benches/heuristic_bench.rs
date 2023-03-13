@@ -1,4 +1,4 @@
-use std::{fs, fmt::format, time::Duration};
+use std::{fs, time::Duration};
 
 use criterion::{criterion_main, criterion_group, Criterion, BenchmarkId, PlotConfiguration};
 use max_cut::*;
@@ -6,12 +6,12 @@ use max_cut::*;
 pub fn heuristic_bench(c: &mut Criterion) {
     let mut group = c.benchmark_group("heuristic_bench");
 
-    let graphs = fs::read_dir("benches/data").unwrap();
+    let graphs = fs::read_dir("benches/data/vc_exact").unwrap();
 
     for graph_path in graphs {
         let graph_path = graph_path.unwrap().path();
         let raw = fs::read_to_string(&graph_path).unwrap();
-        let graph = graph_parser::parse_graph(&raw).unwrap();
+        let graph = graph_parser::parse_pace_graph(&raw).unwrap();
 
         group.throughput(criterion::Throughput::Elements(graph.size() as u64));
         group.sample_size(10);
