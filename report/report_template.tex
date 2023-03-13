@@ -59,13 +59,14 @@ When $u$ and $v$ are in the same partition, $x_u + x_v = 0$ (or $2$ respectively
 Because of (\ref{cst1}) and (\ref{cst2}) $z_{uv}$ then only can be $0$.
 Only when $u$ and $v$ are in different partitions $x_u + x_v = 1$ and $z_uv$ can become
 $1$ and thus be part of the cut.
+This formulation has $|V| + |E|$ variables (for each vertex and edge) and $2 * |E|$ constraints.
 
 \subsection{0.5-Approximation Algorithm}
 
 The 0.5-approximation algorithm is a greedy which iteratively inserts each vertex in the partition
 which improves the cut the most. For each vertex $v$ we count the the number of neighbors in
 $S$ and $T$ and then insert $v$ in the partition wich contains less neighbors of $v$ in order
-to increase the cut size as much as possible. Algorithm~\ref{algo:approx} shows the pseudo-code
+to increase the cut size as much as possible. Algorithm~\ref{alg:approx} shows the pseudo-code
 of this algorithm.
 
 This algorithm finds a 0.5-approximation because if we let $C_{v_i}$ be the cut with all vertex added
@@ -92,13 +93,111 @@ Summing over all $v \in V$ we get:
         $S = S \cup \{v\}$
       }
     }
-    \KwRet{$(S, S \setminus V)$}
+    \ForEach{$e \in E$}{
+      \If{$e$ has only one vertex in $S$}{
+        $C = C \cup \{e\}$ \\
+      }
+    }
+    \KwRet{C}
+  }
+\end{algorithm}
+
+ 
+\subsection{Heuristic}
+
+For the heuristic we can simply do a random flip if we add a vertex to $S$ or not.
+This also results in a 0.5-approximation. That is, for each $v \in V$:
+
+\[
+  P(v \in S) = P(v \notin S) = \frac{1}{2}
+\]
+
+Thus the probability for any edge $(v, u)$ to be in the cut is the probability of $u$ and $v$
+beign assigned to different partitions.
+
+\begin{align*}
+  P(e \in C) & = P(v \in S \wedge u \notin S) + P(v \notin S \wedge u \in S) \\
+  & = \frac{1}{4} + \frac{1}{4} \\
+  & = \frac{1}{2}
+\end{align*}
+
+The overall expected size of the cut is:
+
+\begin{align*}
+  |C| & = \sum_{e \in E} P(e \in C) \\
+  & = \frac{1}{2} * |E|
+\end{align*}
+
+Which is a 0.5-approximation on expectation.
+Algorithm~\ref{alg:heuristic} show the pseudo-code for this heuristic.
+
+\begin{algorithm}
+  \caption{0.5-Heuristic for Maximum-Cut}
+  \label{alg:heuristic}
+  \KwIn{Graph $G = (V, E)$}
+  \KwOut{Cut $C$}
+  \Begin{
+    \ForEach{$v \in V$}{
+      randomly add $v$ to $S$ with probability $\frac{1}{2}$ \\
+    }
+    \ForEach{$e \in E$}{
+      \If{$e$ has only one vertex in $S$}{
+        $C = C \cup \{e\}$ \\
+      }
+    }
+    \KwRet{C}
   }
 \end{algorithm}
 
 
 \section{Algorithm \& Implementation}
-This section provides information about the actually used algorithms and their respective implementations. It should roughly cover the following three topics:
+% This section provides information about the actually used algorithms and their respective implementations. It should roughly cover the following three topics:
+In order to compare the performance of these three algorithms I have to come up with implementations for these algorithms.
+In this chapter I will first talk about possible modifications to the base algorithms which will hopefully increase the performance of them.
+Secondly, I will provide the implementation details for the three algorithms.
+
+\subsection{Algorithm Engineering}
+For the ILP-formulation I could not find any improvements given it already is very concise.
+
+The approximation algorithm on the other side can be improved by instead of searching for each neighbor of the currently considerd $v$ in $S$
+in order to figure out if it is contained in $S$, we can generate a lookup table over all vertex and save whether it got added to $S$ or not.
+This not only reduces the practical running time but also the theoretical because instead of having to search in $S$ to find out if a vertex is
+in $S$ or not we can simply do a lookup at the position for the vertex in our lookup-table which is in $\mathcal{O}(1)$ instead of $\mathcal{O}(|S|)$.
+Furthermore instead of calculating the edges contained in the cut after creating the partitions we can do this during the creation of the partitions.
+For each vertex $v$ we just add all edges to neighbors which are not in the same partition as $v$ to the cut.
+
+The theoretical running time for the heuristic on the other hand cannot be reduced. But it is possible to parallise this algorithm very easily.
+We can simply divide the vertices into $p$ equaly sized, disjunct partitions, where $p$ is the number of availlable processors.
+Each processor then gets assigned one of the partitions and adds each $v$ in the partition to $S$ randomly.
+
+\subsection{Implementation Details}
+
+All algorithms were implemented in Rust(1.67.1).
+
+As a data structure for the graph I used adjacency lists. This datastructure consists of an array over all vertices. 
+For each vertex the set of outgoing edges is saved as an array of the indices of it's neighbors reachable via outgoing edges.
+I made this decicion because this data structure allows iterating over the neighbors for
+a vertex $v$ in $\Theta(deg(v))$ which is highly beneficial for the approximation algorithm.
+
+The ILP was formulated with the libary \href{https://crates.io/crates/good\_lp}{good\_lp}. For the solver \href{d}{solver} was used.
+To formulate the problem the libary provides a data structure to which the variables and constraints get added and passes this
+formulation to the solver.
+
+For the approximation algorithms no external libraries were used. 
+In its basic version I just go over all vertices and iterate through all neighbors of each vertex $v$ to count how many are already contained in $S$.
+If less neighbors are in $S$ than there aren't, $v$ gets added to $S$. $S$ is implemented as a growable array holding the indices of all $v$ contained in $S$.
+To find all cut edges I iterate over all edges and test if only one of their vertex is in $S$.
+The engineered version uses a fixed size array holding booleans for $S$. A vertex is contained in $S$ if the entry at it's index is true.
+It also uses a growable array to collect all edges included in the cut. In each round I now count how many neighbors are in $S$ (and aren't respectively) by checking their entry in
+the lookup array and add the vertex to $S$ if less neighbors were in $S$ than weren't. Then all edges to neighbors not in $S$ (or in $S$ respectively) get added to the cut.
+One important thing is to ignore all neighbors with a higher index than the current vertex or edges that aren't in the final cut might be added.
+
+Lastly, for the heuristic the libary \href{https://crates.io/crates/rand}{rand} was used for random-number-generation.
+The for the basic implementation each vertex just randomly gets added to $S$ with probability $\frac{1}{2}$.
+In order to parallelise this heuristic all vertices get divided into evenly sized arrays and passed to a seperate thread.
+Each thread then applies the basic heuristic to his slice. For generating random numbers a simple pseudo-random number generator is used
+in order to increase performance because for this application it is not necessary to use true random numbers.
+
 \begin{itemize}
 	\item \textbf{Advanced Algorithm:}\\
 		Give and explain the advanced algorithms that you used, and compare them to the basic algorithms.

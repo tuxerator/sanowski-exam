@@ -1,17 +1,16 @@
 use crate::graph::{Edge, Graph};
 
 pub fn max_cut_greedy(graph: &Graph) -> Vec<Edge> {
-    let mut partitions = (Vec::new(), Vec::new());
+    let mut s = vec![];
 
     for vertex in 0..graph.size() {
         let neighbors = graph.get_neighbors(vertex);
         let counts = neighbors
             .iter()
             .fold((0usize, 0usize), |mut counts, neigh| {
-                if partitions.0.contains(neigh) {
+                if s.contains(neigh) {
                     counts.0 += 1;
-                }
-                if partitions.1.contains(neigh) {
+                } else {
                     counts.1 += 1;
                 }
 
@@ -19,20 +18,15 @@ pub fn max_cut_greedy(graph: &Graph) -> Vec<Edge> {
             });
 
         if counts.0 <= counts.1 {
-            partitions.0.push(vertex);
-        } else {
-            partitions.1.push(vertex);
+            s.push(vertex);
         }
     }
-
-    println!("Calculated");
 
     let edges = graph.all_edges();
     let mut cut: Vec<Edge> = Vec::new();
 
     for edge in edges {
-        if partitions.0.contains(&edge.0) && partitions.0.contains(&edge.1)
-            || partitions.1.contains(&edge.0) && partitions.1.contains(&edge.1)
+        if s.contains(&edge.0) && s.contains(&edge.1) || s.contains(&edge.0) && s.contains(&edge.1)
         {
             continue;
         } else {
@@ -40,5 +34,35 @@ pub fn max_cut_greedy(graph: &Graph) -> Vec<Edge> {
         }
     }
 
+    cut
+}
+
+pub fn max_cut_greedy_impr(graph: &Graph) -> Vec<Edge> {
+    let mut table = [false; graph.size()];
+    let mut cut = vec![];
+
+    for vertex in 0..graph.size() {
+        let neighbors = graph.get_neighbors(vertex);
+        let counts = neighbors
+            .iter()
+            .fold((vec![], vec![]), |mut counts, neigh| {
+                if *neigh <= vertex {
+                    if table[neigh] {
+                        counts.0.push(Edge(vertex, *neigh));
+                    } else {
+                        counts.1.push(Edge(vertex, *neigh));
+                    }
+                }
+
+                counts
+            });
+
+        if counts.0.len() <= counts.1.len() {
+            table[vertex] = true;
+            cut.append(&mut counts.1);
+        } else {
+            cut.append(&mut counts.0);
+        }
+    }
     cut
 }
