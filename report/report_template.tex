@@ -208,24 +208,42 @@ in order to increase performance because for this application it is not necessar
 \end{itemize}
 
 \section{Experimental Evaluation}
-% In this section, the experimental setup is described and the results are presented.
+In this section, the experimental setup is described and the results are presented.
+\subsection{Data and Hardware}%
+\label{sub:Data and Hardware}
+
 Experiments were conducted on a 4-core (8 hyper-threads) Intel i7-6700K CPU with a clock speed
 of 4.00GHz an 16GiB of RAM.
 
-The approximation algorithm and the heuristic were evaluated on 30 graphs of increasing size. 
+The approximation algorithm and the heuristic were evaluated on 30 graphs of increasing size,
+selected from the 200 \href{00}{PACE??} graphs.
 Table \reg{tbl:graph1} shows the number of nodes and edges for each graph.
 
 The ILP was tested on three relativly small graphs because bigger graphs would take way to long to get a result.
+These graphs were provided by \href{??}{??} with an optimal solution so my results can be compared to their findings.
 Table \reg{tbl:graph2} shows the size of these graphs.
-
-\subsection{Data and Hardware}%
-\label{sub:Data and Hardware}
-Here, the input data and the applied parameters are described. Further, information about the underlying hardware such as main memory and CPU is provided.
 
 \subsection{Results}%
 \label{sub:Results}
-In this part, the results are presented. This includes comparison of running time and memory usage.\\
-To visualize the results we recommend one of the following graphing tools:
+% In this part, the results are presented. This includes comparison of running time and memory usage.\\
+% To visualize the results we recommend one of the following graphing tools:
+
+\subsubsection{Approximation Algorithm}
+The running times of the two approximation algorithms are shown in Figur \ref{fig:approx_run}.
+
+The results clearly show that the improved algorithm vastly outperforms the basic variant.
+We can also observe, that the improvement factor grows with the input size wich coensides with the improvement in
+the theoretical running time.
+One interesting observation is the quite significant dip in running time for graphs with arround 60000 vertices.
+This seems to be caused by the vastly lower edge count for these graphs (Table \ref{tbl:graph1}).
+
+Figure \ref{fig:approx_size} shows size of the computed cuts compared to the optimum found by \href{??}{??}.
+As expected, the approximation algorithm most of the time computes results which are about half the size of the optimum.
+But for some instances the result is a lot closer to the optimum than the theoretical garantee.
+
+\subsubsection{Heuristic}
+
+
 \begin{itemize}
 	\item \textbf{mathplotlib:}\\ 
 		\href{https://matplotlib.org/}{matplotlib} is a library for python which allows the direct visualization of the produced results.

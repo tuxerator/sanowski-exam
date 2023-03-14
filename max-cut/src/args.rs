@@ -11,6 +11,14 @@ pub struct Args {
     #[arg(short, long)]
     pub ilp: bool,
 
+    /// Calculate the maximum cut using the approximation algorithm
+    #[arg(short, long)]
+    pub approx: bool,
+
+    /// Calculate the maximum cut using the heuristic
+    #[arg(short, long)]
+    pub heuristic: bool,
+
     /// Write output into specified file
     #[arg(short, long, value_name = "FILE")]
     pub output: Option<PathBuf>,

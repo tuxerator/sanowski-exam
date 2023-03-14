@@ -14,7 +14,7 @@ fn ilp_test() -> Result<(), good_lp::ResolutionError> {
         process::exit(1);
     });
 
-    let graph = graph_parser::parse_graph(&input_graph).unwrap_or_else(|err| {
+    let graph = graph_parser::parse_pace_graph(&input_graph).unwrap_or_else(|err| {
         eprintln!("parse error: \n\t{err}");
         process::exit(1);
     });

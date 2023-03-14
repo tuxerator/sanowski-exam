@@ -38,16 +38,16 @@ pub fn max_cut_greedy(graph: &Graph) -> Vec<Edge> {
 }
 
 pub fn max_cut_greedy_impr(graph: &Graph) -> Vec<Edge> {
-    let mut table = [false; graph.size()];
+    let mut table = vec![false; graph.size()];
     let mut cut = vec![];
 
     for vertex in 0..graph.size() {
         let neighbors = graph.get_neighbors(vertex);
-        let counts = neighbors
+        let mut counts = neighbors
             .iter()
             .fold((vec![], vec![]), |mut counts, neigh| {
                 if *neigh <= vertex {
-                    if table[neigh] {
+                    if table[*neigh] {
                         counts.0.push(Edge(vertex, *neigh));
                     } else {
                         counts.1.push(Edge(vertex, *neigh));

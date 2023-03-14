@@ -1,6 +1,8 @@
 mod args;
-use core::time;
-use std::{fs, process, thread, time::{Instant, Duration}};
+use std::{
+    fs, process, thread,
+    time::{Duration, Instant},
+};
 
 use args::Args;
 use max_cut::{aprox, graph_parser, heuristic, ilp};
@@ -38,9 +40,9 @@ fn main() {
 
         let timeout = Instant::now();
         thread::spawn(move || {
-            while timeout.elapsed() <= Duration::from_secs(3600 * 2) {};
-                println!("{}, timeout", file);
-                process::exit(2);
+            while timeout.elapsed() <= Duration::from_secs(3600 * 2) {}
+            println!("{}, timeout", file);
+            process::exit(2);
         });
         let start = Instant::now();
 
@@ -55,9 +57,10 @@ fn main() {
             let solution_size = exact.len();
 
             println!(
-                "{}, {}, {}, {}",
+                "{}, {}, {}, {}, {}",
                 args.file.to_str().unwrap(),
                 graph.size(),
+                graph.edge_size(),
                 solution_size,
                 end.as_millis(),
             );
@@ -67,6 +70,50 @@ fn main() {
                 args.file.to_str().unwrap(),
                 exact
             );
+        }
+    }
+
+    if args.approx {
+        let start = Instant::now();
+        let cut = aprox::max_cut_greedy(&graph);
+        let end = start.elapsed();
+
+        if args.bench {
+            println!(
+                "{}, {}, {}, {}, {}",
+                args.file.to_str().unwrap(),
+                graph.size(),
+                graph.edge_size(),
+                cut.len(),
+                end.as_millis(),
+            );
+        } else {
+            println!("Appriximated maximum cut for \'{}\': \n\n{:?}",
+                args.file.to_str().unwrap(),
+                cut
+            )
+        }
+    }
+
+    if args.heuristic {
+        let start = Instant::now();
+        let cut = heuristic::rand_aprox(&graph);
+        let end = start.elapsed();
+
+        if args.bench {
+            println!(
+                "{}, {}, {}, {}, {}",
+                args.file.to_str().unwrap(),
+                graph.size(),
+                graph.edge_size(),
+                cut.len(),
+                end.as_millis(),
+            );
+        } else {
+            println!("Appriximated maximum cut for \'{}\': \n\n{:?}",
+                args.file.to_str().unwrap(),
+                cut
+            )
         }
     }
 }

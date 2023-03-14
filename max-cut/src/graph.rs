@@ -82,6 +82,8 @@ impl Graph {
         // self.adjacency_matrix[edge.0][edge.1] = true;
         if !self.adjacency_lists[edge.0].contains(&edge.1) {
             self.adjacency_lists[edge.0].push(edge.1);
+        }
+        if !self.adjacency_lists[edge.1].contains(&edge.0) {
             self.adjacency_lists[edge.1].push(edge.0);
         }
     }
@@ -94,7 +96,7 @@ impl Graph {
 
     pub fn contains_edge(&self, edge: &(usize, usize)) -> bool {
         // self.adjacency_matrix[edge.0][edge.1]
-        self.adjacency_lists[edge.0].contains(&edge.1)
+        self.adjacency_lists[edge.0].contains(&edge.1) || self.adjacency_lists[edge.1].contains(&edge.0)
     }
 
     pub fn all_edges(&self) -> Vec<Edge> {
@@ -136,10 +138,10 @@ impl Graph {
 
     pub fn edge_size(&self) -> usize {
         self.adjacency_lists
-            .iter()
-            .fold((0usize, 0usize), |mut n, x| {
-                n.0 += x.iter().fold(0, |mut m, z| {
-                    if *z > n.1 {
+            .iter().enumerate()
+            .fold(0usize, |mut n, x| {
+                n += x.1.iter().fold(0, |mut m, z| {
+                    if *z > x.0 {
                         m += 1
                     }
 
@@ -148,7 +150,6 @@ impl Graph {
 
                 n
             })
-            .0
     }
 
     pub fn size(&self) -> usize {
@@ -183,6 +184,7 @@ mod tests {
         ];
 
         assert_eq!(graph.all_edges(), expected);
+        assert_eq!(graph.edge_size(), expected.len());
     }
 
     #[test]

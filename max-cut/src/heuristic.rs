@@ -1,26 +1,38 @@
 use std::num::NonZeroUsize;
 use std::thread::{available_parallelism, self, Result};
 
-use crate::graph::Graph;
+use crate::graph::{Graph, Edge};
 use rand::{Rng, SeedableRng};
 use rand::rngs::SmallRng;
 
-pub fn rand_aprox(graph: &Graph) -> (Vec<usize>, Vec<usize>) {
-    let mut cut = (Vec::new(), Vec::new());
+pub fn rand_aprox(graph: &Graph) -> Vec<Edge> {
+    let mut s = vec![];
     let mut rand = SmallRng::from_entropy();
 
     for vertex in 0..graph.size() {
         match rand.gen_bool(1.0 / 2.0) {
-            true => cut.0.push(vertex),
-            false => cut.1.push(vertex),
+            true => s.push(vertex),
+            false => continue,
+        }
+    }
+
+    let edges = graph.all_edges();
+    let mut cut: Vec<Edge> = Vec::new();
+
+    for edge in edges {
+        if s.contains(&edge.0) && s.contains(&edge.1) || s.contains(&edge.0) && s.contains(&edge.1)
+        {
+            continue;
+        } else {
+            cut.push(edge);
         }
     }
 
     cut
 }
 
-pub fn rand_aprox_parallel(graph: &Graph) -> Result<(Vec<usize>, Vec<usize>)>{
-    let mut cut = (vec![], vec![]);
+pub fn rand_aprox_parallel(graph: &Graph) -> Result<Vec<Edge>>{
+    let mut s = vec![];
     let cores = available_parallelism().unwrap_or(NonZeroUsize::new(8).unwrap()).get();
     let mut slices = vec![vec![]; cores];
     let mut core = 0;
@@ -34,17 +46,17 @@ pub fn rand_aprox_parallel(graph: &Graph) -> Result<(Vec<usize>, Vec<usize>)>{
 
     for slice in slices {
         let handle = thread::spawn(move || {
-            let mut partition = (vec![], vec![]);
+            let mut s = vec![];
             let mut rand = SmallRng::from_entropy();
 
             for vertex in slice {
                 match rand.gen_bool(1.0 / 2.0) {
-                    true => partition.0.push(vertex),
-                    false => partition.1.push(vertex),
+                    true => s.push(vertex),
+                    false => continue,
                 }
             }
 
-            partition
+            s
         });
 
         handles.push(handle);
@@ -59,8 +71,19 @@ pub fn rand_aprox_parallel(graph: &Graph) -> Result<(Vec<usize>, Vec<usize>)>{
 
 
     for mut ele in results {
-        cut.0.append(&mut ele.0);
-        cut.1.append(&mut ele.1);
+        s.append(&mut ele);
+    }
+
+    let edges = graph.all_edges();
+    let mut cut: Vec<Edge> = Vec::new();
+
+    for edge in edges {
+        if s.contains(&edge.0) && s.contains(&edge.1) || s.contains(&edge.0) && s.contains(&edge.1)
+        {
+            continue;
+        } else {
+            cut.push(edge);
+        }
     }
 
 
