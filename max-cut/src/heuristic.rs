@@ -1,5 +1,5 @@
 use std::num::NonZeroUsize;
-use std::sync::Arc;
+use std::sync::{Arc, Mutex};
 use std::thread::{self, available_parallelism, Result};
 
 use crate::graph::{Edge, Graph};
@@ -7,22 +7,22 @@ use rand::rngs::SmallRng;
 use rand::{Rng, SeedableRng};
 
 pub fn rand_aprox(graph: &Graph) -> Vec<Edge> {
-    let mut s = vec![];
+    let mut s = vec![false; graph.size()];
     let mut rand = SmallRng::from_entropy();
 
     for vertex in 0..graph.size() {
         match rand.gen_bool(1.0 / 2.0) {
-            true => s.push(vertex),
+            true => s[vertex] = true,
             false => continue,
         }
     }
 
     let edges = graph.all_edges();
     let mut cut: Vec<Edge> = Vec::new();
-
     for edge in edges {
-        if s.contains(&edge.0) && s.contains(&edge.1) || s.contains(&edge.0) && s.contains(&edge.1)
-        {
+        let s_0 = s[edge.0];
+        let s_1 = s[edge.1];
+        if s_0 == s_1 {
             continue;
         } else {
             cut.push(edge);
@@ -32,8 +32,40 @@ pub fn rand_aprox(graph: &Graph) -> Vec<Edge> {
     cut
 }
 
+pub fn rand_approx_impr(graph: Arc<Graph>) -> Result<Vec<Edge>> {
+    let cores = available_parallelism()
+        .unwrap_or(NonZeroUsize::new(8).unwrap())
+        .get();
+
+    let mut best = vec![];
+
+    while (best.len() as f64) < graph.size() as f64 * 0.5 {
+        let mut handles = vec![];
+        for _core in 0..cores {
+            let graph = Arc::clone(&graph);
+            let handle = thread::spawn(move || rand_aprox(&graph));
+            handles.push(handle);
+        }
+
+        let mut results = vec![];
+
+        for handle in handles {
+            let result = handle.join()?;
+            results.push(result);
+        }
+
+        for result in results {
+            if result.len() > best.len() {
+                best = result;
+            }
+        }
+    }
+
+    Ok(best)
+}
+
 pub fn rand_aprox_parallel(graph: &Graph) -> Result<Vec<Edge>> {
-    let mut s = vec![];
+    let s = Arc::new(Mutex::new(vec![false; graph.size()]));
     let cores = available_parallelism()
         .unwrap_or(NonZeroUsize::new(8).unwrap())
         .get();
@@ -48,13 +80,13 @@ pub fn rand_aprox_parallel(graph: &Graph) -> Result<Vec<Edge>> {
     let mut handles = vec![];
 
     for slice in slices {
+        let s = Arc::clone(&s);
         let handle = thread::spawn(move || {
-            let mut s = vec![];
             let mut rand = SmallRng::from_entropy();
 
             for vertex in slice {
                 match rand.gen_bool(1.0 / 2.0) {
-                    true => s.push(vertex),
+                    true => s.lock().unwrap()[vertex] = true,
                     false => continue,
                 }
             }
@@ -71,11 +103,7 @@ pub fn rand_aprox_parallel(graph: &Graph) -> Result<Vec<Edge>> {
         results.push(handle.join()?);
     }
 
-    for mut ele in results {
-        s.append(&mut ele);
-    }
-
-    let s = Arc::new(s);
+    let s = Arc::new(s.lock().unwrap().clone());
 
     let edges = graph.all_edges();
     let mut cut: Vec<Edge> = Vec::new();
@@ -93,9 +121,9 @@ pub fn rand_aprox_parallel(graph: &Graph) -> Result<Vec<Edge>> {
             let mut cut = vec![];
 
             for edge in slice {
-                if s.contains(&edge.0) && s.contains(&edge.1)
-                    || s.contains(&edge.0) && s.contains(&edge.1)
-                {
+                let s_0 = s[edge.0];
+                let s_1 = s[edge.1];
+                if s_0 == s_1 {
                     continue;
                 } else {
                     cut.push(edge);

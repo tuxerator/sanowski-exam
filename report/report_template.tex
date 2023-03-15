@@ -113,7 +113,7 @@ This also results in a 0.5-approximation. That is, for each $v \in V$:
 \]
 
 Thus the probability for any edge $(v, u)$ to be in the cut is the probability of $u$ and $v$
-beign assigned to different partitions.
+being assigned to different partitions.
 
 \begin{align*}
   P(e \in C) & = P(v \in S \wedge u \notin S) + P(v \notin S \wedge u \in S) \\
@@ -166,21 +166,28 @@ in $S$ or not we can simply do a lookup at the position for the vertex in our lo
 Furthermore instead of calculating the edges contained in the cut after creating the partitions we can do this during the creation of the partitions.
 For each vertex $v$ we just add all edges to neighbors which are not in the same partition as $v$ to the cut.
 
-The theoretical running time for the heuristic on the other hand cannot be reduced. But it is possible to parallise this algorithm very easily.
-We can simply divide the vertices into $p$ equaly sized, disjunct partitions, where $p$ is the number of availlable processors.
-Each processor then gets assigned one of the partitions and adds each $v$ in the partition to $S$ randomly.
+Because the heuristic only results in a 0.5-approximation on expectation,
+we can execute multiple times at once in and pick the best result.
+This, of course, does not improve our running time but our quality of our result.
+Furthermore, if we desire a good quality result more than very fast running times,
+we can repeat this until our result higher than $\frac{1}{2}|E|$.
+In order to increase performance we can try to parallelise the generation of the heuristic.
+This can be achieved by splitting the vertices in disjoint subsets in the number of available cores
+and assigning each core one subset.
+Furthermore we can do the same for the edges when searching for the edges contained in the cut.
+
 
 \subsection{Implementation Details}
 
 All algorithms were implemented in Rust(1.67.1).
 
-As a data structure for the graph I used adjacency lists. This datastructure consists of an array over all vertices. 
+As a data structure for the graph I used adjacency lists. This data structure consists of an array over all vertices. 
 For each vertex the set of outgoing edges is saved as an array of the indices of it's neighbors reachable via outgoing edges.
-I made this decicion because this data structure allows iterating over the neighbors for
+I made this decision because this data structure allows iterating over the neighbors for
 a vertex $v$ in $\Theta(deg(v))$ which is highly beneficial for the approximation algorithm.
 
-The ILP was formulated with the libary \href{https://crates.io/crates/good\_lp}{good\_lp}. For the solver \href{d}{solver} was used.
-To formulate the problem the libary provides a data structure to which the variables and constraints get added and passes this
+The ILP was formulated with the library \href{https://crates.io/crates/good\_lp}{good\_lp}. For the solver \href{d}{solver} was used.
+To formulate the problem the library provides a data structure to which the variables and constraints get added and passes this
 formulation to the solver.
 
 For the approximation algorithms no external libraries were used. 
@@ -192,20 +199,14 @@ It also uses a growable array to collect all edges included in the cut. In each 
 the lookup array and add the vertex to $S$ if less neighbors were in $S$ than weren't. Then all edges to neighbors not in $S$ (or in $S$ respectively) get added to the cut.
 One important thing is to ignore all neighbors with a higher index than the current vertex or edges that aren't in the final cut might be added.
 
-Lastly, for the heuristic the libary \href{https://crates.io/crates/rand}{rand} was used for random-number-generation.
+Lastly, for the heuristic the library \href{https://crates.io/crates/rand}{rand} was used for random-number-generation.
 The for the basic implementation each vertex just randomly gets added to $S$ with probability $\frac{1}{2}$.
-In order to parallelise this heuristic all vertices get divided into evenly sized arrays and passed to a seperate thread.
+In order to parallelise this heuristic all vertices get divided into evenly sized arrays and passed to a separate thread.
 Each thread then applies the basic heuristic to his slice. For generating random numbers a simple pseudo-random number generator is used
 in order to increase performance because for this application it is not necessary to use true random numbers.
 
-\begin{itemize}
-	\item \textbf{Advanced Algorithm:}\\
-		Give and explain the advanced algorithms that you used, and compare them to the basic algorithms.
-	\item \textbf{Implementation:}\\
-		Explain how you implemented these algorithms and state what external libraries you used.
-	\item \textbf{Algorithm Engineering Concepts:}\\
-		State the algorithm engineering concepts that you used and explain why they were helpful (if applicable).
-\end{itemize}
+For the quality improved version of this heuristic, we simply execute the basic heuristic
+in parallel on copy's of the input graph.
 
 \section{Experimental Evaluation}
 In this section, the experimental setup is described and the results are presented.
@@ -217,11 +218,13 @@ of 4.00GHz an 16GiB of RAM.
 
 The approximation algorithm and the heuristic were evaluated on 30 graphs of increasing size,
 selected from the 200 \href{00}{PACE??} graphs.
-Table \reg{tbl:graph1} shows the number of nodes and edges for each graph.
+Table \ref{tbl:graph1} shows the number of nodes and edges for each graph.
 
-The ILP was tested on three relativly small graphs because bigger graphs would take way to long to get a result.
+The ILP was tested on three relativly small graphs with a timeout of 2 hours
+because bigger graphs would take way to long to get a result.
 These graphs were provided by \href{??}{??} with an optimal solution so my results can be compared to their findings.
-Table \reg{tbl:graph2} shows the size of these graphs.
+Table \ref{tbl:graph2} shows the size of these graphs.
+
 
 \subsection{Results}%
 \label{sub:Results}
@@ -229,32 +232,54 @@ Table \reg{tbl:graph2} shows the size of these graphs.
 % To visualize the results we recommend one of the following graphing tools:
 
 \subsubsection{Approximation Algorithm}
-The running times of the two approximation algorithms are shown in Figur \ref{fig:approx_run}.
+The running times of the two approximation algorithms are shown in Figure \ref{fig:approx_run}.
 
 The results clearly show that the improved algorithm vastly outperforms the basic variant.
-We can also observe, that the improvement factor grows with the input size wich coensides with the improvement in
-the theoretical running time.
-One interesting observation is the quite significant dip in running time for graphs with arround 60000 vertices.
-This seems to be caused by the vastly lower edge count for these graphs (Table \ref{tbl:graph1}).
+Compared to all other algorithms, the improved variant performs the best on all instances.
 
-Figure \ref{fig:approx_size} shows size of the computed cuts compared to the optimum found by \href{??}{??}.
-As expected, the approximation algorithm most of the time computes results which are about half the size of the optimum.
-But for some instances the result is a lot closer to the optimum than the theoretical garantee.
+Figure \ref{fig:approx_size} shows size of the computed cuts compared to the optimum found in the Biq Mac Libary. \href{??}{??}.
+We can see that the results of the approximation algorithm are quite close to the optimum.
+In practice it seems like the results approximation algorithm are only about 10\% less than the optimum.
 
 \subsubsection{Heuristic}
+As figure \ref{fig:run} shows, the parallel heuristic does not only not improve performance,
+it actually performs worse on all instances than the basic implementation.
 
+Compared to the approximation algorithm the basic implementation performs slightly better
+than the improved approximation algorithm.
+The parallel version does about as well as the improved approximation algorithm for large
+instances.
 
-\begin{itemize}
-	\item \textbf{mathplotlib:}\\ 
-		\href{https://matplotlib.org/}{matplotlib} is a library for python which allows the direct visualization of the produced results.
-	\item \textbf{R:}\\
-		R is a programming language for statistical computations, which provides different graphing possibilities. One of the better known is \href{https://ggplot2.tidyverse.org/}{ggplot2}.
-	\item \textbf{gnuplot:}\\
-		\href{http://www.gnuplot.info/}{gnuplot} is a command-line plotting program. It can also be used to graph data directly from different programming languages, such as Java and C++.
-\end{itemize}
+In terms of the quality of the result they are about 80\% the size of the optimum.
+Furthermore they are roughly $\frac{1}{2}|E|$. 
+
+\subsection{Integer Linear Program}
+After two hours, no solution was found for any of the instances.
+Because of this I decided to conduct another experiment only using the smallest instance \'g05\_60.0\'
+without a timeout.
+
+The results of this experiment can be seen in Table \ref{tbl:ilp}.
 
 \section{Discussion and Conclusion}
-In this section, the results are discussed and interpreted. Finally, the work is summarized shortly.
+% In this section, the results are discussed and interpreted. Finally, the work is summarized shortly.
+
+In this work, I compared a basic heuristic and approximation algorithm and an ILP-formulation 
+for exact computation of the max-cut problem.
+For the heuristic and approximation we looked into methods of possibly improving their run time.
+We showed that the basic implementation of the heuristic always is the fastest but gets beaten
+by the approximation algorithm in terms of quality of the result. It might be surprising, that
+the parallel heuristic is slower than the basic implementation.
+But after considering the amount of work which is parallelised is quite small it becomes quite
+clear, that the time saved by parallelising is negated by the amount of work necessary for
+merging the results of the individual threads.
+
+Another interesting observation is the better result quality of the approximation algorithm
+compared to the heuristic.
+The reason for this observation are the guarantees we can make about the results.
+As shown in Section \ref{sub:pre_approx} the approximation algorithm guarantees that the
+result size is at least $\frac{1}{2}|E|$ where as the heuristic only produces results
+with size $\frac{1}{2}|E|$ in expectation. This means the heuristic may produce results
+which are smaller in size than the expectation.
 
 \section{References}
 The references list the external resources used in the work at hand. \LaTeX$ $  offers special ways to list those resources. In this template the references are stored in the 'refs.bib' file and can be referenced with the '\textbackslash$ $cite\{REF\}' command, where REF is a label defined in the .bib file. This example shows how such a reference looks like: \cite{exa}.

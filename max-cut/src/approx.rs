@@ -26,7 +26,7 @@ pub fn max_cut_greedy(graph: &Graph) -> Vec<Edge> {
     let mut cut: Vec<Edge> = Vec::new();
 
     for edge in edges {
-        if s.contains(&edge.0) && s.contains(&edge.1) || s.contains(&edge.0) && s.contains(&edge.1)
+        if s.contains(&edge.0) == s.contains(&edge.1)
         {
             continue;
         } else {
@@ -46,18 +46,18 @@ pub fn max_cut_greedy_impr(graph: &Graph) -> Vec<Edge> {
         let mut counts = neighbors
             .iter()
             .fold((vec![], vec![]), |mut counts, neigh| {
-                if *neigh <= vertex {
+                if *neigh < vertex {
                     if table[*neigh] {
-                        counts.0.push(Edge(vertex, *neigh));
+                        counts.0.push(Edge(*neigh, vertex));
                     } else {
-                        counts.1.push(Edge(vertex, *neigh));
+                        counts.1.push(Edge(*neigh, vertex));
                     }
                 }
 
                 counts
             });
 
-        if counts.0.len() <= counts.1.len() {
+        if counts.0.len() < counts.1.len() {
             table[vertex] = true;
             cut.append(&mut counts.1);
         } else {

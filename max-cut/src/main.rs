@@ -1,7 +1,7 @@
 mod args;
 use std::{
     fs, process, thread,
-    time::{Duration, Instant},
+    time::{Duration, Instant}, sync::Arc,
 };
 
 use args::Args;
@@ -17,7 +17,7 @@ fn main() {
         process::exit(1);
     });
 
-    let graph = if args.file.extension().unwrap() == "gr" {
+    let graph = Arc::new(if args.file.extension().unwrap() == "gr" {
         graph_parser::parse_pace_graph(&input_graph).unwrap_or_else(|err| {
             eprintln!("parse error: \n\t{err}");
             process::exit(1);
@@ -27,7 +27,7 @@ fn main() {
             eprintln!("parse error: \n\t{err}");
             process::exit(1);
         })
-    };
+    });
 
     if !args.bench {
         println!("parsed \'{}\'", args.file.to_str().unwrap());
@@ -74,9 +74,19 @@ fn main() {
     }
 
     if args.approx {
-        let start = Instant::now();
-        let cut = approx::max_cut_greedy(&graph);
-        let end = start.elapsed();
+        let start;
+        let cut;
+        let end;
+
+        if args.improved {
+            start = Instant::now();
+            cut = approx::max_cut_greedy_impr(&graph);
+            end = start.elapsed();
+        } else {
+            start = Instant::now();
+            cut = approx::max_cut_greedy(&graph);
+            end = start.elapsed();
+        }
 
         if args.bench {
             println!(
@@ -88,7 +98,8 @@ fn main() {
                 end.as_millis(),
             );
         } else {
-            println!("Appriximated maximum cut for \'{}\': \n\n{:?}",
+            println!(
+                "Appriximated maximum cut for \'{}\': \n\n{:?}",
                 args.file.to_str().unwrap(),
                 cut
             )
@@ -96,9 +107,23 @@ fn main() {
     }
 
     if args.heuristic {
-        let start = Instant::now();
-        let cut = heuristic::rand_aprox(&graph);
-        let end = start.elapsed();
+        let start;
+        let cut;
+        let end;
+
+        if args.improved {
+            start = Instant::now();
+            cut = heuristic::rand_approx_impr(Arc::clone(&graph)).unwrap();
+            end = start.elapsed();
+        } else if args.heuristic_parallel {
+            start = Instant::now();
+            cut = heuristic::rand_aprox_parallel(&graph).unwrap();
+            end = start.elapsed();
+        } else {
+            start = Instant::now();
+            cut = heuristic::rand_aprox(&graph);
+            end = start.elapsed();
+        }
 
         if args.bench {
             println!(
@@ -110,7 +135,8 @@ fn main() {
                 end.as_millis(),
             );
         } else {
-            println!("Appriximated maximum cut for \'{}\': \n\n{:?}",
+            println!(
+                "Appriximated maximum cut for \'{}\': \n\n{:?}",
                 args.file.to_str().unwrap(),
                 cut
             )

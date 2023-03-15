@@ -39,8 +39,8 @@ pub fn approx_bench(c: &mut Criterion) {
     time_group.finish();
 }
 
-pub fn heuristic_bench(c: &mut Criterion) {
-    let mut time_group = c.benchmark_group("heuristic_bench");
+pub fn max_cut_bench(c: &mut Criterion) {
+    let mut time_group = c.benchmark_group("heuristic_approx_bench");
 
     let graphs = fs::read_dir("benches/data/vc_exact").unwrap();
 
@@ -61,6 +61,12 @@ pub fn heuristic_bench(c: &mut Criterion) {
         // time_group.measurement_time(Duration::from_millis(1));
         // time_group.warm_up_time(Duration::from_millis(1));
         time_group.plot_config(PlotConfiguration::default().summary_scale(AxisScale::Logarithmic));
+        time_group.bench_with_input(BenchmarkId::new("approx basic", &id), &graph, |b, g| {
+            b.iter(|| approx::max_cut_greedy(g))
+        });
+        time_group.bench_with_input(BenchmarkId::new("approx improved", &id), &graph, |b, g| {
+            b.iter(|| approx::max_cut_greedy_impr(g))
+        });
         time_group.bench_with_input(BenchmarkId::new("heuristic_basic", &id), &graph, |b, g| {
             b.iter(|| heuristic::rand_aprox(g))
         });
@@ -105,5 +111,5 @@ pub fn heuristic_approx_bench(c: &mut Criterion) {
     time_group.finish();
 }
 
-criterion_group!(time, approx_bench, heuristic_bench, heuristic_approx_bench);
+criterion_group!(time, max_cut_bench);
 criterion_main!(time);
