@@ -5,7 +5,7 @@ use std::{
 };
 
 use args::Args;
-use max_cut::{aprox, graph_parser, heuristic, ilp};
+use max_cut::{approx, graph_parser, heuristic, ilp};
 
 use clap::Parser;
 
@@ -39,11 +39,11 @@ fn main() {
         let file = args.file.to_str().unwrap().to_owned();
 
         let timeout = Instant::now();
-        thread::spawn(move || {
-            while timeout.elapsed() <= Duration::from_secs(3600 * 2) {}
-            println!("{}, timeout", file);
-            process::exit(2);
-        });
+        // thread::spawn(move || {
+        //     while timeout.elapsed() <= Duration::from_secs(3600 * 2) {}
+        //     println!("{}, timeout", file);
+        //     process::exit(2);
+        // });
         let start = Instant::now();
 
         let exact = ilp.solve().unwrap_or_else(|err| {
@@ -75,7 +75,7 @@ fn main() {
 
     if args.approx {
         let start = Instant::now();
-        let cut = aprox::max_cut_greedy(&graph);
+        let cut = approx::max_cut_greedy(&graph);
         let end = start.elapsed();
 
         if args.bench {

@@ -1,0 +1,11 @@
+group,function,value,throughput_num,throughput_type,sample_measured_value,unit,iteration_count
+heuristic_bench,heuristic improved,"graph: vc-exact_040.gr, vetices: 210, edges: 625",210,elements,330250.0,ns,1
+heuristic_bench,heuristic improved,"graph: vc-exact_040.gr, vetices: 210, edges: 625",210,elements,305801.0,ns,1
+heuristic_bench,heuristic improved,"graph: vc-exact_040.gr, vetices: 210, edges: 625",210,elements,344466.0,ns,1
+heuristic_bench,heuristic improved,"graph: vc-exact_040.gr, vetices: 210, edges: 625",210,elements,286716.0,ns,1
+heuristic_bench,heuristic improved,"graph: vc-exact_040.gr, vetices: 210, edges: 625",210,elements,347087.0,ns,1
+heuristic_bench,heuristic improved,"graph: vc-exact_040.gr, vetices: 210, edges: 625",210,elements,312463.0,ns,1
+heuristic_bench,heuristic improved,"graph: vc-exact_040.gr, vetices: 210, edges: 625",210,elements,305385.0,ns,1
+heuristic_bench,heuristic improved,"graph: vc-exact_040.gr, vetices: 210, edges: 625",210,elements,322221.0,ns,1
+heuristic_bench,heuristic improved,"graph: vc-exact_040.gr, vetices: 210, edges: 625",210,elements,311764.0,ns,1
+heuristic_bench,heuristic improved,"graph: vc-exact_040.gr, vetices: 210, edges: 625",210,elements,306210.0,ns,1

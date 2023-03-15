@@ -3,7 +3,7 @@ use std::{
     usize,
 };
 
-#[derive(PartialEq, Clone, Copy)]
+#[derive(PartialEq, Eq, Clone, Copy)]
 pub struct Edge(pub usize, pub usize);
 
 impl fmt::Display for Edge {
@@ -20,7 +20,7 @@ impl Debug for Edge {
 
 /// A graph type using an adjacency matrix.
 /// For simplicity, once created, only edges can be added or removed.
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Eq, Debug)]
 pub struct Graph {
     // adjacency_matrix: Vec<Vec<bool>>,
     adjacency_lists: Vec<Vec<usize>>,
@@ -79,7 +79,6 @@ impl Graph {
     }
 
     pub fn add_edge(&mut self, edge: &(usize, usize)) {
-        // self.adjacency_matrix[edge.0][edge.1] = true;
         if !self.adjacency_lists[edge.0].contains(&edge.1) {
             self.adjacency_lists[edge.0].push(edge.1);
         }
@@ -100,29 +99,6 @@ impl Graph {
     }
 
     pub fn all_edges(&self) -> Vec<Edge> {
-        // Filter out all 'false' entries
-        // self.adjacency_matrix
-        //     .iter()
-        //     .scan(0usize, |i, r| {
-        //         let old = *i;
-        //         *i += 1;
-        //         Some(
-        //             r.iter()
-        //                 .scan((old, 0usize), |j, &e| {
-        //                     let edge = Edge(j.0, j.1);
-        //                     j.1 += 1;
-        //                     if e {
-        //                         Some(Some(edge))
-        //                     } else {
-        //                         Some(None)
-        //                     }
-        //                 })
-        //                 .flatten(),
-        //         )
-        //     })
-        //     .flatten()
-        //     .collect()
-
         let mut edges = vec![];
 
         for i in 0..self.adjacency_lists.len() {
@@ -138,9 +114,11 @@ impl Graph {
 
     pub fn edge_size(&self) -> usize {
         self.adjacency_lists
+            // Iterate over all adjacency_lists
             .iter().enumerate()
             .fold(0usize, |mut n, x| {
                 n += x.1.iter().fold(0, |mut m, z| {
+                    // if a neighbor is bigger than the current vertex count the edge
                     if *z > x.0 {
                         m += 1
                     }

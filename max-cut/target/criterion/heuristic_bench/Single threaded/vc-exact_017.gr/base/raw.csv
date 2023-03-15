@@ -1,0 +1,11 @@
+group,function,value,throughput_num,throughput_type,sample_measured_value,unit,iteration_count
+heuristic_bench,Single threaded,vc-exact_017.gr,23541,elements,171032.0,ns,1
+heuristic_bench,Single threaded,vc-exact_017.gr,23541,elements,171717.0,ns,1
+heuristic_bench,Single threaded,vc-exact_017.gr,23541,elements,171624.0,ns,1
+heuristic_bench,Single threaded,vc-exact_017.gr,23541,elements,170519.0,ns,1
+heuristic_bench,Single threaded,vc-exact_017.gr,23541,elements,175266.0,ns,1
+heuristic_bench,Single threaded,vc-exact_017.gr,23541,elements,170441.0,ns,1
+heuristic_bench,Single threaded,vc-exact_017.gr,23541,elements,168671.0,ns,1
+heuristic_bench,Single threaded,vc-exact_017.gr,23541,elements,170022.0,ns,1
+heuristic_bench,Single threaded,vc-exact_017.gr,23541,elements,171182.0,ns,1
+heuristic_bench,Single threaded,vc-exact_017.gr,23541,elements,170987.0,ns,1

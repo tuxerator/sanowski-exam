@@ -1,0 +1,21 @@
+group,function,value,throughput_num,throughput_type,sample_measured_value,unit,iteration_count
+heuristic_approx_bench,approx_improved,"graph: vc-exact_192.gr, vetices: 2980, edges: 5360",8340,elements,23861177.0,ns,109
+heuristic_approx_bench,approx_improved,"graph: vc-exact_192.gr, vetices: 2980, edges: 5360",8340,elements,46405246.0,ns,218
+heuristic_approx_bench,approx_improved,"graph: vc-exact_192.gr, vetices: 2980, edges: 5360",8340,elements,68253151.0,ns,327
+heuristic_approx_bench,approx_improved,"graph: vc-exact_192.gr, vetices: 2980, edges: 5360",8340,elements,97813020.0,ns,436
+heuristic_approx_bench,approx_improved,"graph: vc-exact_192.gr, vetices: 2980, edges: 5360",8340,elements,115045610.0,ns,545
+heuristic_approx_bench,approx_improved,"graph: vc-exact_192.gr, vetices: 2980, edges: 5360",8340,elements,138255243.0,ns,654
+heuristic_approx_bench,approx_improved,"graph: vc-exact_192.gr, vetices: 2980, edges: 5360",8340,elements,161977211.0,ns,763
+heuristic_approx_bench,approx_improved,"graph: vc-exact_192.gr, vetices: 2980, edges: 5360",8340,elements,193383012.0,ns,872
+heuristic_approx_bench,approx_improved,"graph: vc-exact_192.gr, vetices: 2980, edges: 5360",8340,elements,219235323.0,ns,981
+heuristic_approx_bench,approx_improved,"graph: vc-exact_192.gr, vetices: 2980, edges: 5360",8340,elements,235162840.0,ns,1090
+heuristic_approx_bench,approx_improved,"graph: vc-exact_192.gr, vetices: 2980, edges: 5360",8340,elements,251804678.0,ns,1199
+heuristic_approx_bench,approx_improved,"graph: vc-exact_192.gr, vetices: 2980, edges: 5360",8340,elements,274603721.0,ns,1308
+heuristic_approx_bench,approx_improved,"graph: vc-exact_192.gr, vetices: 2980, edges: 5360",8340,elements,301361972.0,ns,1417
+heuristic_approx_bench,approx_improved,"graph: vc-exact_192.gr, vetices: 2980, edges: 5360",8340,elements,343302532.0,ns,1526
+heuristic_approx_bench,approx_improved,"graph: vc-exact_192.gr, vetices: 2980, edges: 5360",8340,elements,348189283.0,ns,1635
+heuristic_approx_bench,approx_improved,"graph: vc-exact_192.gr, vetices: 2980, edges: 5360",8340,elements,369862805.0,ns,1744
+heuristic_approx_bench,approx_improved,"graph: vc-exact_192.gr, vetices: 2980, edges: 5360",8340,elements,397816385.0,ns,1853
+heuristic_approx_bench,approx_improved,"graph: vc-exact_192.gr, vetices: 2980, edges: 5360",8340,elements,430804129.0,ns,1962
+heuristic_approx_bench,approx_improved,"graph: vc-exact_192.gr, vetices: 2980, edges: 5360",8340,elements,460136008.0,ns,2071
+heuristic_approx_bench,approx_improved,"graph: vc-exact_192.gr, vetices: 2980, edges: 5360",8340,elements,471228095.0,ns,2180

@@ -1,0 +1,21 @@
+group,function,value,throughput_num,throughput_type,sample_measured_value,unit,iteration_count
+approx_bench,approx basic,"graph: vc-exact_022.gr, vetices: 12589, edges: 19775",32364,elements,392152247.0,ns,2
+approx_bench,approx basic,"graph: vc-exact_022.gr, vetices: 12589, edges: 19775",32364,elements,392068099.0,ns,2
+approx_bench,approx basic,"graph: vc-exact_022.gr, vetices: 12589, edges: 19775",32364,elements,392480067.0,ns,2
+approx_bench,approx basic,"graph: vc-exact_022.gr, vetices: 12589, edges: 19775",32364,elements,391483445.0,ns,2
+approx_bench,approx basic,"graph: vc-exact_022.gr, vetices: 12589, edges: 19775",32364,elements,392655310.0,ns,2
+approx_bench,approx basic,"graph: vc-exact_022.gr, vetices: 12589, edges: 19775",32364,elements,391941604.0,ns,2
+approx_bench,approx basic,"graph: vc-exact_022.gr, vetices: 12589, edges: 19775",32364,elements,400775324.0,ns,2
+approx_bench,approx basic,"graph: vc-exact_022.gr, vetices: 12589, edges: 19775",32364,elements,401138684.0,ns,2
+approx_bench,approx basic,"graph: vc-exact_022.gr, vetices: 12589, edges: 19775",32364,elements,415808157.0,ns,2
+approx_bench,approx basic,"graph: vc-exact_022.gr, vetices: 12589, edges: 19775",32364,elements,392889243.0,ns,2
+approx_bench,approx basic,"graph: vc-exact_022.gr, vetices: 12589, edges: 19775",32364,elements,394030398.0,ns,2
+approx_bench,approx basic,"graph: vc-exact_022.gr, vetices: 12589, edges: 19775",32364,elements,396708916.0,ns,2
+approx_bench,approx basic,"graph: vc-exact_022.gr, vetices: 12589, edges: 19775",32364,elements,392963300.0,ns,2
+approx_bench,approx basic,"graph: vc-exact_022.gr, vetices: 12589, edges: 19775",32364,elements,399690374.0,ns,2
+approx_bench,approx basic,"graph: vc-exact_022.gr, vetices: 12589, edges: 19775",32364,elements,396583667.0,ns,2
+approx_bench,approx basic,"graph: vc-exact_022.gr, vetices: 12589, edges: 19775",32364,elements,391657230.0,ns,2
+approx_bench,approx basic,"graph: vc-exact_022.gr, vetices: 12589, edges: 19775",32364,elements,391832047.0,ns,2
+approx_bench,approx basic,"graph: vc-exact_022.gr, vetices: 12589, edges: 19775",32364,elements,392453077.0,ns,2
+approx_bench,approx basic,"graph: vc-exact_022.gr, vetices: 12589, edges: 19775",32364,elements,391515821.0,ns,2
+approx_bench,approx basic,"graph: vc-exact_022.gr, vetices: 12589, edges: 19775",32364,elements,406071334.0,ns,2

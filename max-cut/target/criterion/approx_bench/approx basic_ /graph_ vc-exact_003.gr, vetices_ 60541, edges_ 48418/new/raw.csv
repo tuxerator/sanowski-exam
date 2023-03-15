@@ -1,0 +1,11 @@
+group,function,value,throughput_num,throughput_type,sample_measured_value,unit,iteration_count
+approx_bench,approx basic: ,"graph: vc-exact_003.gr, vetices: 60541, edges: 48418",60541,elements,622851203.0,ns,1
+approx_bench,approx basic: ,"graph: vc-exact_003.gr, vetices: 60541, edges: 48418",60541,elements,622130145.0,ns,1
+approx_bench,approx basic: ,"graph: vc-exact_003.gr, vetices: 60541, edges: 48418",60541,elements,621660360.0,ns,1
+approx_bench,approx basic: ,"graph: vc-exact_003.gr, vetices: 60541, edges: 48418",60541,elements,622191288.0,ns,1
+approx_bench,approx basic: ,"graph: vc-exact_003.gr, vetices: 60541, edges: 48418",60541,elements,621634534.0,ns,1
+approx_bench,approx basic: ,"graph: vc-exact_003.gr, vetices: 60541, edges: 48418",60541,elements,621076320.0,ns,1
+approx_bench,approx basic: ,"graph: vc-exact_003.gr, vetices: 60541, edges: 48418",60541,elements,621548674.0,ns,1
+approx_bench,approx basic: ,"graph: vc-exact_003.gr, vetices: 60541, edges: 48418",60541,elements,621838437.0,ns,1
+approx_bench,approx basic: ,"graph: vc-exact_003.gr, vetices: 60541, edges: 48418",60541,elements,621538228.0,ns,1
+approx_bench,approx basic: ,"graph: vc-exact_003.gr, vetices: 60541, edges: 48418",60541,elements,622378316.0,ns,1

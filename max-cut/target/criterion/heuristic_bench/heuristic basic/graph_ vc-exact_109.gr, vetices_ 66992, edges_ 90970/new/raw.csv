@@ -1,0 +1,11 @@
+group,function,value,throughput_num,throughput_type,sample_measured_value,unit,iteration_count
+heuristic_bench,heuristic basic,"graph: vc-exact_109.gr, vetices: 66992, edges: 90970",66992,elements,2379570396.0,ns,1
+heuristic_bench,heuristic basic,"graph: vc-exact_109.gr, vetices: 66992, edges: 90970",66992,elements,2367311705.0,ns,1
+heuristic_bench,heuristic basic,"graph: vc-exact_109.gr, vetices: 66992, edges: 90970",66992,elements,2381388791.0,ns,1
+heuristic_bench,heuristic basic,"graph: vc-exact_109.gr, vetices: 66992, edges: 90970",66992,elements,2364340335.0,ns,1
+heuristic_bench,heuristic basic,"graph: vc-exact_109.gr, vetices: 66992, edges: 90970",66992,elements,2373716789.0,ns,1
+heuristic_bench,heuristic basic,"graph: vc-exact_109.gr, vetices: 66992, edges: 90970",66992,elements,2379600580.0,ns,1
+heuristic_bench,heuristic basic,"graph: vc-exact_109.gr, vetices: 66992, edges: 90970",66992,elements,2385533516.0,ns,1
+heuristic_bench,heuristic basic,"graph: vc-exact_109.gr, vetices: 66992, edges: 90970",66992,elements,2370386248.0,ns,1
+heuristic_bench,heuristic basic,"graph: vc-exact_109.gr, vetices: 66992, edges: 90970",66992,elements,2376256729.0,ns,1
+heuristic_bench,heuristic basic,"graph: vc-exact_109.gr, vetices: 66992, edges: 90970",66992,elements,2390212612.0,ns,1

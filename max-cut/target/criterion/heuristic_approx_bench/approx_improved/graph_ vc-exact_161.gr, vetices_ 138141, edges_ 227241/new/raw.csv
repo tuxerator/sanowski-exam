@@ -1,0 +1,21 @@
+group,function,value,throughput_num,throughput_type,sample_measured_value,unit,iteration_count
+heuristic_approx_bench,approx_improved,"graph: vc-exact_161.gr, vetices: 138141, edges: 227241",365382,elements,31129542.0,ns,3
+heuristic_approx_bench,approx_improved,"graph: vc-exact_161.gr, vetices: 138141, edges: 227241",365382,elements,66512115.0,ns,6
+heuristic_approx_bench,approx_improved,"graph: vc-exact_161.gr, vetices: 138141, edges: 227241",365382,elements,95934955.0,ns,9
+heuristic_approx_bench,approx_improved,"graph: vc-exact_161.gr, vetices: 138141, edges: 227241",365382,elements,130664505.0,ns,12
+heuristic_approx_bench,approx_improved,"graph: vc-exact_161.gr, vetices: 138141, edges: 227241",365382,elements,161998076.0,ns,15
+heuristic_approx_bench,approx_improved,"graph: vc-exact_161.gr, vetices: 138141, edges: 227241",365382,elements,196401854.0,ns,18
+heuristic_approx_bench,approx_improved,"graph: vc-exact_161.gr, vetices: 138141, edges: 227241",365382,elements,232294074.0,ns,21
+heuristic_approx_bench,approx_improved,"graph: vc-exact_161.gr, vetices: 138141, edges: 227241",365382,elements,258555931.0,ns,24
+heuristic_approx_bench,approx_improved,"graph: vc-exact_161.gr, vetices: 138141, edges: 227241",365382,elements,279940307.0,ns,27
+heuristic_approx_bench,approx_improved,"graph: vc-exact_161.gr, vetices: 138141, edges: 227241",365382,elements,313210649.0,ns,30
+heuristic_approx_bench,approx_improved,"graph: vc-exact_161.gr, vetices: 138141, edges: 227241",365382,elements,343529823.0,ns,33
+heuristic_approx_bench,approx_improved,"graph: vc-exact_161.gr, vetices: 138141, edges: 227241",365382,elements,378965233.0,ns,36
+heuristic_approx_bench,approx_improved,"graph: vc-exact_161.gr, vetices: 138141, edges: 227241",365382,elements,424289177.0,ns,39
+heuristic_approx_bench,approx_improved,"graph: vc-exact_161.gr, vetices: 138141, edges: 227241",365382,elements,459819609.0,ns,42
+heuristic_approx_bench,approx_improved,"graph: vc-exact_161.gr, vetices: 138141, edges: 227241",365382,elements,486603745.0,ns,45
+heuristic_approx_bench,approx_improved,"graph: vc-exact_161.gr, vetices: 138141, edges: 227241",365382,elements,510229569.0,ns,48
+heuristic_approx_bench,approx_improved,"graph: vc-exact_161.gr, vetices: 138141, edges: 227241",365382,elements,556838678.0,ns,51
+heuristic_approx_bench,approx_improved,"graph: vc-exact_161.gr, vetices: 138141, edges: 227241",365382,elements,583381669.0,ns,54
+heuristic_approx_bench,approx_improved,"graph: vc-exact_161.gr, vetices: 138141, edges: 227241",365382,elements,614475245.0,ns,57
+heuristic_approx_bench,approx_improved,"graph: vc-exact_161.gr, vetices: 138141, edges: 227241",365382,elements,633167900.0,ns,60
