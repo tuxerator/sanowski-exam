@@ -2,7 +2,7 @@
 
 ## Build
 
-To build the program install `cargo` then execute
+To build the program install `cargo` and `clang` then execute
 ```
 cargo build --release
 ```
