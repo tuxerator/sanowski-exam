@@ -1,1 +1,31 @@
 graph, vertices, edges, cut-size, time in ms
+data/vc_exact/vc-exact_001.gr, timeout
+data/vc_exact/vc-exact_003.gr, 60541, 48418, 48418, 5640
+data/vc_exact/vc-exact_008.gr, timeout
+data/vc_exact/vc-exact_009.gr, timeout
+data/vc_exact/vc-exact_012.gr, 53444, 42526, 42526, 4319
+data/vc_exact/vc-exact_017.gr, timeout
+data/vc_exact/vc-exact_022.gr, timeout
+data/vc_exact/vc-exact_026.gr, timeout
+data/vc_exact/vc-exact_027.gr, 65866, 52435, 52435, 6511
+data/vc_exact/vc-exact_032.gr, timeout
+data/vc_exact/vc-exact_040.gr, 210, 625, 278, 13486
+data/vc_exact/vc-exact_056.gr, timeout
+data/vc_exact/vc-exact_082.gr, timeout
+data/vc_exact/vc-exact_084.gr, timeout
+data/vc_exact/vc-exact_085.gr, timeout
+data/vc_exact/vc-exact_094.gr, timeout
+data/vc_exact/vc-exact_095.gr, timeout
+data/vc_exact/vc-exact_109.gr, timeout
+data/vc_exact/vc-exact_110.gr, timeout
+data/vc_exact/vc-exact_120.gr, timeout
+data/vc_exact/vc-exact_161.gr, timeout
+data/vc_exact/vc-exact_162.gr, timeout
+data/vc_exact/vc-exact_164.gr, timeout
+data/vc_exact/vc-exact_172.gr, timeout
+data/vc_exact/vc-exact_181.gr, timeout
+data/vc_exact/vc-exact_183.gr, timeout
+data/vc_exact/vc-exact_186.gr, timeout
+data/vc_exact/vc-exact_189.gr, timeout
+data/vc_exact/vc-exact_192.gr, timeout
+data/vc_exact/vc-exact_200.gr, timeout

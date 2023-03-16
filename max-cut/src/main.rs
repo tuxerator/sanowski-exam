@@ -1,7 +1,7 @@
 mod args;
 use std::{
-    fs, process, thread,
-    time::{Duration, Instant}, sync::Arc,
+    fs, process,
+    time::{Instant, Duration}, sync::Arc, thread,
 };
 
 use args::Args;
@@ -33,17 +33,20 @@ fn main() {
         println!("parsed \'{}\'", args.file.to_str().unwrap());
     }
 
-    if args.ilp {
+    if args.ilp >= 0{
         let ilp = ilp::MaxCutIlp::new(&graph);
 
         let file = args.file.to_str().unwrap().to_owned();
 
         let timeout = Instant::now();
-        // thread::spawn(move || {
-        //     while timeout.elapsed() <= Duration::from_secs(3600 * 2) {}
-        //     println!("{}, timeout", file);
-        //     process::exit(2);
-        // });
+        if args.ilp > 0 {
+        thread::spawn(move || {
+            while timeout.elapsed() <= Duration::from_secs(args.ilp.try_into().unwrap()) {}
+            println!("{}, timeout", file);
+            process::exit(2);
+        });
+
+        }
         let start = Instant::now();
 
         let exact = ilp.solve().unwrap_or_else(|err| {

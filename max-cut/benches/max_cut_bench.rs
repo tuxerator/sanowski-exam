@@ -1,4 +1,4 @@
-use std::fs;
+use std::{fs, sync::Arc};
 
 use criterion::{
     criterion_group, criterion_main,
@@ -47,7 +47,7 @@ pub fn max_cut_bench(c: &mut Criterion) {
     for graph_path in graphs {
         let graph_path = graph_path.unwrap().path();
         let raw = fs::read_to_string(&graph_path).unwrap();
-        let graph = graph_parser::parse_pace_graph(&raw).unwrap();
+        let graph = Arc::new(graph_parser::parse_pace_graph(&raw).unwrap());
 
         let id = format!(
             "graph: {}, vetices: {}, edges: {}",
@@ -69,6 +69,9 @@ pub fn max_cut_bench(c: &mut Criterion) {
         });
         time_group.bench_with_input(BenchmarkId::new("heuristic_basic", &id), &graph, |b, g| {
             b.iter(|| heuristic::rand_aprox(g))
+        });
+        time_group.bench_with_input(BenchmarkId::new("heuristic_improved", &id), &graph, |b, g| {
+            b.iter(||  heuristic::rand_approx_impr(Arc::clone(g)))
         });
         time_group.bench_with_input(BenchmarkId::new("heuristic_parallel", &id), &graph, |b, g| {
             b.iter(|| heuristic::rand_aprox_parallel(g))

@@ -39,7 +39,7 @@ pub fn rand_approx_impr(graph: Arc<Graph>) -> Result<Vec<Edge>> {
 
     let mut best = vec![];
 
-    while (best.len() as f64) < graph.size() as f64 * 0.5 {
+    while (best.len() as f64) < graph.edge_size() as f64 * 0.5 {
         let mut handles = vec![];
         for _core in 0..cores {
             let graph = Arc::clone(&graph);
@@ -97,10 +97,9 @@ pub fn rand_aprox_parallel(graph: &Graph) -> Result<Vec<Edge>> {
         handles.push(handle);
     }
 
-    let mut results = vec![];
 
     for handle in handles {
-        results.push(handle.join()?);
+        handle.join()?;
     }
 
     let s = Arc::new(s.lock().unwrap().clone());

@@ -1,0 +1,99 @@
+%% Creator: Inkscape 1.2.2 (b0a8486541, 2022-12-01), www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'running_times_svg-tex.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{960bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.5625)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{running_times_svg-tex.pdf}}%
+    \put(0.09599219,0.04195313){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}0.0000010\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{running_times_svg-tex.pdf}}%
+    \put(0.09599219,0.10136719){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}0.0000100\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{running_times_svg-tex.pdf}}%
+    \put(0.09599219,0.16078125){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}0.0001000\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{running_times_svg-tex.pdf}}%
+    \put(0.09599219,0.22019531){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}0.0010000\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{running_times_svg-tex.pdf}}%
+    \put(0.09599219,0.27960937){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}0.0100000\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{running_times_svg-tex.pdf}}%
+    \put(0.09599219,0.33901562){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}0.1000000\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{running_times_svg-tex.pdf}}%
+    \put(0.09599219,0.39842969){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}1.0000000\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{running_times_svg-tex.pdf}}%
+    \put(0.09599219,0.45784375){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}10.0000000\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{running_times_svg-tex.pdf}}%
+    \put(0.09599219,0.51725781){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}100.0000000\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{running_times_svg-tex.pdf}}%
+    \put(0.10254687,0.02789063){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}100\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{running_times_svg-tex.pdf}}%
+    \put(0.28090625,0.02789063){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}1000\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=12]{running_times_svg-tex.pdf}}%
+    \put(0.45926563,0.02789063){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}10000\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=13]{running_times_svg-tex.pdf}}%
+    \put(0.637625,0.02789063){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}100000\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=14]{running_times_svg-tex.pdf}}%
+    \put(0.81598437,0.02789063){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}1x106\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=15]{running_times_svg-tex.pdf}}%
+    \put(0.01498438,0.28264844){\rotatebox{90}{\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Average time (s)\end{tabular}}}}}%
+    \put(0.45926563,0.00679688){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Input Size (Elements)\end{tabular}}}}%
+    \put(0.87545312,0.51022656){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}approx basic\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=16]{running_times_svg-tex.pdf}}%
+    \put(0.87545312,0.49616406){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}approx improved\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=17]{running_times_svg-tex.pdf}}%
+    \put(0.87545312,0.48210156){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}heuristic_basic\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=18]{running_times_svg-tex.pdf}}%
+    \put(0.87545312,0.46803906){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}heuristic_improved\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=19]{running_times_svg-tex.pdf}}%
+    \put(0.87545312,0.45397656){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}heuristic_parallel\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=20]{running_times_svg-tex.pdf}}%
+    \put(0.45926562,0.53835156){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}heuristic_approx_bench: Comparison\end{tabular}}}}%
+  \end{picture}%
+\endgroup%
